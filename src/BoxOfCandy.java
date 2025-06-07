@@ -24,8 +24,17 @@ public class BoxOfCandy {
      *         {@code false} otherwise
      */
     public boolean moveCandyToFirstRow(int col) {
-        // TODO — write your solution here
-        return false;   // placeholder so template compiles
+        if (this.box[0][col] != null) { // check if first row is filled; if true, return true and nothing
+            return true;
+        }
+        for (int i = 1; i < this.box.length; i++) { // loop through the rest of the rows
+            if (this.box[i][col] != null) { // once a filled space is found
+                this.box[0][col] = this.box[i][col]; // move it to the top row, row 0
+                this.box[i][col] = null; //empty found row; return true
+                return true;
+            }
+        }
+        return false;   // return false; row is empty
     }
 
     /**
@@ -37,7 +46,17 @@ public class BoxOfCandy {
      * @return the removed Candy, or {@code null} if no such Candy exists
      */
     public Candy removeNextByFlavor(String flavor) {
-        // TODO — write your solution here
+        for (int r = this.box.length - 1; r >= 0; r--) {
+            for (int c = 0; c < this.box[0].length; c++) {
+                if (this.box[r][c] != null) {
+                    Candy candy = this.box[r][c];
+                    if (candy.getFlavor() == flavor) {
+                        this.box[r][c] = null;
+                        return candy;
+                    }
+                }
+            }
+        }
         return null;    // placeholder so template compiles
     }
 
